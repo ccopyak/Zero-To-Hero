@@ -1,13 +1,22 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
 from tensorflow.keras.models import load_model
+
+import pickle
+
+# Load the scaler
+with open("scaler.pkl", 'rb') as f:
+    scaler = pickle.load(f)
+
+
+# Load the feature columns using pickle
+with open("feature_columns.pkl", 'rb') as f:
+    feature_columns = pickle.load(f)
+
 
 # === Load model and scaler ===
 model = load_model("basketball_nn_model.h5")
-scaler = joblib.load("scaler.pkl")
-feature_columns = joblib.load("feature_columns.pkl")
 
 # === Load team stats data ===
 team_stats_df = pd.read_excel("data.xlsx")
